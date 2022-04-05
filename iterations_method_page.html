@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+    <h2>Welcome to Linear Equation Systems Solver!</h2>
+    <h3>*It`s solved using Simple Iterations method</h3>
+</div>
+<div>
+    <b>First, enter your group number:</b>
+    <input type="text"  class="matrix" id="number" value="2" placeholder="I`m ... in the group list">
+</div>
+<div>
+    <br><b>Enter coefficients</b> (if necessary)<b>:</b>
+    <table>
+        <tr>
+            <td>
+                <input type="text" value="5" class="matrix" id="a11">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a12">
+            </td>
+            <td>
+                <input type="text" value="-1" class="matrix" id="a13">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a14">
+            </td>
+            <td>
+                <input type="text" value="6" class="matrix" placeholder="m*3" id="b1">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" value="1" class="matrix" id="a21">
+            </td>
+            <td>
+                <input type="text" value="-4" class="matrix" id="a22">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a23">
+            </td>
+            <td>
+                <input type="text" value="-1" class="matrix" id="a24">
+            </td>
+            <td>
+                <input type="text" value="-4" placeholder="m-6" class="matrix" id="b2">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" value="-1" class="matrix" id="a31">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a32">
+            </td>
+            <td>
+                <input type="text" value="4" class="matrix" id="a33">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a34">
+            </td>
+            <td>
+                <input type="text" value="13" placeholder="15-m" class="matrix" id="b3">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" value="1" class="matrix" id="a41">
+            </td>
+            <td>
+                <input type="text" value="2" class="matrix" id="a42">
+            </td>
+            <td>
+                <input type="text" value="1" class="matrix" id="a43">
+            </td>
+            <td>
+                <input type="text" value="-5" class="matrix" id="a44">
+            </td>
+            <td>
+                <input type="text" value="4" placeholder="m+2" class="matrix" id="b4">
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <input id="btn" type="button" value="Calculate!" onclick="calculate()">
+</div>
+<div id="iterations"></div>
+<div>
+    <p id="answer"></p>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

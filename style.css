@@ -1,0 +1,53 @@
+.matrix {
+    width: 36px;
+    height: 20px;
+    padding-top: 20px;
+    padding-inline: 10px;
+    text-align: center;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: cadetblue;
+    outline: none;
+}
+
+#number {
+    padding-top: 0px;
+    padding-inline: 10px;
+    text-align: center;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: darkslategrey;
+}
+
+#btn {
+    left: 100px;
+    top: 370px;
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    background: darkcyan;
+    color: #2d2f31;
+    border-radius: 30px;
+    border: 0;
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    outline: none;
+    cursor: pointer;
+}
+
+#btn:hover {
+    box-shadow: 0 0 6px 0 #00d7c3 inset, 0 0 14px 2px #00d7c3;
+    border: 1px solid #00d7c3;
+    color:whitesmoke;
+}
+
+#btn:active {
+    color: #000;
+    background: cadetblue;
+    box-shadow: 0 0 14px 0 darkcyan inset, 0 0 1px 1px darkcyan;
+    border: 0;
+}
+
+

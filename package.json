@@ -1,0 +1,13 @@
+{
+  "name": "simple_iteration_method",
+  "version": "1.0.0",
+  "description": "solving linear equation systems with the simple iterations method",
+  "main": "main.js",
+  "scripts": {
+    "main":"main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dyakonov Sergey KC33",
+  "license": "ISC"
+}
