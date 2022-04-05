@@ -23,31 +23,43 @@ groupNumber.addEventListener('change', (event) => {
         }
         document.querySelector(`#b${i}`).value = res;
     }
+    clear();
+    refreshValues();
 });
 
+for (let i = 1; i < 5; i++)
+    for (let j = 1; j < 5; j++)
+        document.querySelector(`#a${i}${j}`).addEventListener('change', (event) => {
+            clear();
+            refreshValues();
+        });
+
 var matrix = [];
-var m=groupNumber.value;
-var b=[];
-for (let i = 0; i < 4; i++) {
-    b[i]=document.querySelector(`#b${i}`).value;
-    matrix[i] = [];
-    for (let j = 0; j < 4; j++) {
-        matrix[i][j]=document.querySelector(`#a${i+1}${j+1}`).value;
+var m = 0;
+var b = [];
+var x0 = [];
+var x_res=[];
+var epsilon = 0.005;            //precise
+var after_comma = 0;
+
+const refreshValues = () => {
+    document.getElementById("epsilon").innerHTML=`<b>Epsilon: </b>${epsilon}`;
+    document.getElementById("x0").innerHTML="<b>Vector: </b>3 * m, m - 6, 15 - m, m + 2";
+    m = groupNumber.value;
+    x0 = [0.7 * m, 1, 2, 0.5];
+    for (let i = 0; i < 4; i++) {
+        b[i] = document.querySelector(`#b${i + 1}`).value;
+        matrix[i] = [];
+        for (let j = 0; j < 4; j++) {
+            matrix[i][j] = document.querySelector(`#a${i + 1}${j + 1}`).value;
+        }
     }
 }
+refreshValues();
 
-// var matrix = [[5, 1, -1, 1],
-//     [1, -4, 1, -1],
-//     [-1, 1, 4, 1],
-//     [1, 2, 1, -5]];             //matrix
-var epsilon = 0.005;            //precise
-// var m = 2;                      //my number in the students list
-var x0 = [0.7 * m, 1, 2, 0.5];
-// var b = [3 * m, m - 6, 15 - m, m + 2];
-var after_comma = 0;
 do {
     after_comma++;
-} while (epsilon * Math.pow(10, after_comma) < 1);
+} while (epsilon * (10 ** after_comma) < 1);
 
 function D3_determ(m) {
     if (m.length === 3 && m[0].length === 3)
@@ -65,17 +77,12 @@ const determ = (m) => {
                 ar[j] = [...m[j + 1]];                      //cloning using spread-operator
                 ar[j].splice(i, 1);
             }
-            det += Math.pow(-1, i) * m[0][i] * D3_determ(ar);
+            det += (-1) ** i * m[0][i] * D3_determ(ar);
         }
         return det;
     } else return undefined;
 }
 
-if (determ(matrix) > 0) console.log(`Determinant A = ${determ(matrix)}`);
-else {
-    console.error("Determinant A<=0. Can`t resolve the equation!!!");
-    process.exit(1);
-}
 
 const check_convergence = (ar, diagonal_index) => {
     let sum = 0;
@@ -84,13 +91,7 @@ const check_convergence = (ar, diagonal_index) => {
     return sum < Math.abs(ar[diagonal_index]);
 };
 
-for (let i = 0; i < matrix.length; i++)
-    if (!check_convergence(matrix[i], i)) {
-        console.error("Convergence condition isn`t observed. Can`t resolve the equation!!!");
-        process.exit(1);
-    }
-
-const apply_iterations_method = (matrix, x0, b) => {
+const apply_iterations_method=(matrix, x0, b)=>{
     let x = [];
     for (let i = 0; i < matrix.length; i++) {
         let sum1 = 0, sum2 = 0;
@@ -101,25 +102,50 @@ const apply_iterations_method = (matrix, x0, b) => {
         x.push(((b[i] - sum1 - sum2) / matrix[i][i]).toFixed(after_comma));
     }
     console.log(x);
+    document.querySelector("#iterations").innerHTML += x.toString() + "<br>";
     let precise = [];
     for (let i = 0; i < x0.length; i++)
         precise[i] = Math.abs(x0[i] - x[i]);
     return Math.max(precise[0], precise[1], precise[2], precise[3]) >= epsilon ? apply_iterations_method(matrix, x, b) : x;
 }
 
-x0 = apply_iterations_method(matrix, x0, b);
-console.log(`x1=${x0[0]},  x2=${x0[1]},  x3=${x0[2]},  x4=${x0[3]}\n`);
-
-var b1 = [];
-for (let i = 0; i < 4; i++) {
-    let sum = 0;
-    for (let j = 0; j < 4; j++) {
-        sum += matrix[i][j] * x0[j];
+const checkRes = () => {
+    let b1 = [];
+    for (let i = 0; i < 4; i++) {
+        let sum = 0;
+        for (let j = 0; j < 4; j++) {
+            sum += matrix[i][j] * x_res[j];
+        }
+        b1[i] = sum;
     }
-    b1[i] = sum;
+    return b1;
 }
-console.log(`\nChecking:\nStart values:${b}\nResult:${b1}`);
 
-function calculate () {
-    document.querySelector('#answer').textContent = apply_iterations_method(matrix, x0, b).toString();
+const clear = () => {
+    document.getElementById("error").innerHTML="";
+    for (let node of document.getElementsByClassName("text"))
+        node.innerHTML = "";
+}
+
+function calculate() {
+    clear();
+    if (determ(matrix) > 0)
+        console.log(`Determinant A = ${determ(matrix)}`);
+    else {
+        document.getElementById("error").innerHTML="*Determinant A<=0. Can`t resolve the equation!!!";
+        console.error("Determinant A<=0. Can`t resolve the equation!!!");
+        process.exit(1);
+    }
+
+    for (let i = 0; i < matrix.length; i++)
+        if (!check_convergence(matrix[i], i)) {
+            document.getElementById("error").innerHTML="*Convergence condition isn`t observed. Can`t resolve the equation!!!";
+            console.error("Convergence condition isn`t observed. Can`t resolve the equation!!!");
+            process.exit(1);
+        }
+    x_res = apply_iterations_method(matrix, x0, b);
+    document.getElementById("answer").innerHTML = "Answer: " + x_res.toString();
+    document.getElementById("checking").innerHTML = `<b>Checking:</b><br>Start values: ${b}<br>Result: ${checkRes()}`;
+    console.log(`Answer: ${x_res}`);
+    console.log(`\nChecking:\nStart values: ${b}\nResult: ${checkRes()}`);
 }

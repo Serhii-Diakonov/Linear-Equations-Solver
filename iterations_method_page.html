@@ -8,14 +8,18 @@
 <body>
 <div>
     <h2>Welcome to Linear Equation Systems Solver!</h2>
-    <h3>*It`s solved using Simple Iterations method</h3>
+    <h3>*It's solved using Simple Iterations method</h3>
 </div>
 <div>
-    <b>First, enter your group number:</b>
-    <input type="text"  class="matrix" id="number" value="2" placeholder="I`m ... in the group list">
+    <p>
+        <b>First, enter your group number:</b>
+        <input type="text" id="number" value="2" placeholder="I`m ... in the group list">
+    </p>
 </div>
 <div>
-    <br><b>Enter coefficients</b> (if necessary)<b>:</b>
+    <p>
+        <br><b>Enter coefficients</b> (if necessary)<b>:</b>
+    </p>
     <table>
         <tr>
             <td>
@@ -87,12 +91,24 @@
         </tr>
     </table>
 </div>
-<div>
-    <input id="btn" type="button" value="Calculate!" onclick="calculate()">
+<div id="block1">
+    <div id="epsilon"></div>
+    <div id="x0"></div>
 </div>
-<div id="iterations"></div>
-<div>
-    <p id="answer"></p>
+<div id="block">
+    <input id="btn" type="button" value="Calculate!" onclick="calculate()">
+    <span id="error"></span>
+</div>
+<div id="resolving">
+    <div>
+        <p class="text" id="iterations"></p>
+    </div>
+    <div>
+        <p class="text" id="answer"></p>
+    </div>
+    <div>
+        <p class="text" id="checking"></p>
+    </div>
 </div>
 <script src="main.js"></script>
 </body>
