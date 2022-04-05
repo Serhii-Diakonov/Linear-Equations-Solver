@@ -1,3 +1,7 @@
+body{
+    width:1000px;
+    font-family: "Verdana", sans-serif;
+}
 .matrix {
     width: 36px;
     height: 20px;
@@ -10,9 +14,30 @@
     border-bottom-color: cadetblue;
     outline: none;
 }
+#block1{
+    position: absolute;
+    left:400px;
+    top:168px;
+}
+
+h2{
+    color: cadetblue;
+}
+
+h3{
+    font-size: small;
+}
+
+#error{
+    color: red;
+    padding-top: 20px;
+    font-weight: lighter;
+    font-size: small;
+}
 
 #number {
-    padding-top: 0px;
+    outline: none;
+    padding-top: 0;
     padding-inline: 10px;
     text-align: center;
     border-top: 0;
@@ -20,11 +45,21 @@
     border-right: 0;
     border-bottom-color: darkslategrey;
 }
+#answer{
+    font-weight: bold;
+}
 
+#iterations{
+    text-align: center;
+    width: 300px;
+    padding-top: 10px;
+}
+#block{
+    left: 90px;
+    margin-top: 10px;
+    position: relative;
+}
 #btn {
-    left: 100px;
-    top: 370px;
-    position: absolute;
     width: 120px;
     height: 40px;
     background: darkcyan;
